@@ -1,0 +1,7 @@
+### Create new event
+POST {{baseUrl}}/api/events
+Content-Type: application/json
+
+{
+  "title": "Event test 1"
+}
