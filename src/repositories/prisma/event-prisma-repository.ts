@@ -17,4 +17,27 @@ export class EventPrismaRespositoy implements IEventRepository {
 
     return event
   }
+
+  async findEventByUid(eventId: string) {
+    const event = await prisma.event.findUnique({
+      where: { uid: eventId },
+      select: {
+        uid: true,
+        title: true,
+        details: true,
+        slug: true,
+        maximumAttendees: true,
+        _count: {
+          select: {
+            attedees: true
+          }
+        }
+      }
+    })
+
+    if (!event)
+      return null
+
+    return event
+  }
 }

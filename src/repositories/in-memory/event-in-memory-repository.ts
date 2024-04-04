@@ -5,12 +5,12 @@ import { randomUUID } from 'node:crypto'
 import { Event } from '@prisma/client'
 
 // Project
-import { ICreateEvent } from '../../utils/types'
+import { ICreateEvent, IResponseEventRetrieve } from '../../utils/types'
 import { IEventRepository } from '../event-repository'
 import { generateSlug } from '../../utils'
 
 export class EventInMemoryRepository implements IEventRepository {
-  public events: Event[] = []
+  public events: IResponseEventRetrieve[] = []
 
   async create({ title, details, maximumAttendees }: ICreateEvent) {
     const event: Event = {
@@ -22,6 +22,15 @@ export class EventInMemoryRepository implements IEventRepository {
     }
 
     this.events.push(event)
+    return event
+  }
+
+  async findEventByUid(eventId: string) {
+    const event = this.events.find(event => event.uid === eventId)
+
+    if (!event)
+      return null
+
     return event
   }
 }

@@ -3,5 +3,21 @@ POST {{baseUrl}}/api/events
 Content-Type: application/json
 
 {
-  "title": "Event test 1"
+  "title": "Event 4",
+  "maximumAttendees": 5
 }
+
+### Register attendee
+POST {{baseUrl}}/api/attendees/1e79786c-0aa0-423f-afba-2e119686c739/attendee
+Content-Type: application/json
+
+{
+  "name": "Matheus3",
+  "email": "matheus3@gmail.com"
+}
+
+### Event Retrieve
+GET {{baseUrl}}/api/events/67f7bda7-dc7b-4d8d-add6-473ff24ccb53
+
+### Attendee Retrieve badge
+GET {{baseUrl}}/api/attendees/clukse7qg0001g5009m0c0ywo
