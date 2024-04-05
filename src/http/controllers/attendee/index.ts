@@ -12,6 +12,7 @@ import {
 // Local
 import { registerForEvent } from '../attendee/registeForEvent'
 import { attendeeRetrieveBadge } from '../attendee/attendeeRetrieveBadge'
+import { checkIn } from './checkIn'
 
 export const attendeeRoutes = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().post('/:eventId/attendee', {
@@ -26,4 +27,10 @@ export const attendeeRoutes = async (app: FastifyInstance) => {
       params: attendeeRetrieveBadgeZod
     }
   }, attendeeRetrieveBadge)
+
+  app.withTypeProvider<ZodTypeProvider>().get('/:attendeeUid/check-in', {
+    schema: {
+      params: attendeeRetrieveBadgeZod
+    }
+  }, checkIn)
 }

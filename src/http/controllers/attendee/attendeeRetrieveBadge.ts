@@ -12,7 +12,17 @@ export const attendeeRetrieveBadge = async (request: FastifyRequest, reply: Fast
     const attendeeRetrieveBadgeUseCase = makeAttendeeRetrieveBadgeUseCase()
     const { attendee } = await attendeeRetrieveBadgeUseCase.execute(attendeeUid)
 
-    return reply.status(200).send(attendee)
+    const baseURL = `${request.protocol}://${request.hostname}`
+
+    const checkInURL = new URL(`/attendees/${attendee.uid}/check-in`, baseURL)
+
+    return reply.status(200).send({
+      badge: {
+        ...attendee,
+        checkInURL: checkInURL.toString()
+      },
+
+    })
   } catch (error) {
     const err = error as FastifyError
     console.log(err)
